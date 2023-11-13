@@ -1,0 +1,52 @@
+.notie-container {
+    box-shadow: none;
+}
+
+::-webkit-scrollbar {
+    -webkit-backface-visibility: hidden;
+}
+
+#chat-transcript {
+    position: relative;
+    max-height: 500px;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.navbar {
+    /* position: fixed;
+    top: 0; */
+    min-height: 75px;
+    padding: 0px 2px;
+    /* margin-bottom: 15px; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-link {
+    font-weight: bolder;
+}
+
+.action:hover {
+    cursor: pointer;
+}
+
+.parent-container {
+    max-height: 88%;
+    overflow-y: scroll;
+}
+
+#settings-form-parent {
+    max-height: 75vh;
+}
+
+#profile-form-parent {
+    max-height: 75vh;
+}
+
+#settings-form-parent,
+#profile-form-parent {
+    height: max-content;
+    overflow-y: scroll;
+}
