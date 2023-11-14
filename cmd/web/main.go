@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/gob"
 	"flag"
 	"fmt"
 	"log"
@@ -14,6 +15,7 @@ import (
 	"github.com/xuoxod/weblab/internal/envloader"
 	"github.com/xuoxod/weblab/internal/handlers"
 	"github.com/xuoxod/weblab/internal/helpers"
+	"github.com/xuoxod/weblab/internal/models"
 	"github.com/xuoxod/weblab/internal/render"
 )
 
@@ -36,6 +38,16 @@ func initApp() {
 
 	app.InProduction = devMode
 	app.DBConnection = os.Getenv("DB_URL")
+
+	// Store a value in session
+	gob.Register(models.Profile{})
+	gob.Register(models.Preferences{})
+	gob.Register(models.Users{})
+	gob.Register(models.User{})
+	gob.Register(models.Signin{})
+	gob.Register(models.Registration{})
+	gob.Register(models.Authentication{})
+	gob.Register(models.RegistrationErrData{})
 
 	// App config middleware
 	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
