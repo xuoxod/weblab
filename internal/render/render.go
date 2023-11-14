@@ -21,7 +21,6 @@ func InitViews() {
 	View.AddGlobal("copyright", utils.CopyrightDate())
 	View.AddGlobal("appname", "Awesome Web App")
 	View.AddGlobal("appdate", fmt.Sprintf("%v", utils.DateTimeStamp()))
-	View.SetDevelopmentMode(true)
 }
 
 func Render(w http.ResponseWriter, tmpl string, vars jet.VarMap, data map[string]interface{}) error {

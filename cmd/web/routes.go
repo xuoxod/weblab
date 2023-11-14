@@ -12,6 +12,7 @@ func routes() http.Handler {
 
 	mux.Route("/", func(mux chi.Router) {
 		mux.Get("/", handlers.Home)
+		mux.Get("/about", handlers.About)
 		mux.Post("/login", handlers.Authenticate)
 	})
 
