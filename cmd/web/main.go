@@ -11,6 +11,9 @@ import (
 	"github.com/alexedwards/scs/v2"
 	"github.com/xuoxod/weblab/internal/config"
 	"github.com/xuoxod/weblab/internal/driver"
+	"github.com/xuoxod/weblab/internal/envloader"
+	"github.com/xuoxod/weblab/internal/handlers"
+	"github.com/xuoxod/weblab/internal/helpers"
 	"github.com/xuoxod/weblab/internal/render"
 )
 
@@ -24,6 +27,12 @@ var errorLog *log.Logger
 func initApp() {
 	var devMode bool
 	flag.BoolVar(&devMode, "mode", false, "Sets true for production mode or false otherwise - defaults to false")
+
+	err := envloader.LoadEnvVars()
+
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 
 	app.InProduction = devMode
 	app.DBConnection = os.Getenv("DB_URL")
@@ -71,19 +80,19 @@ func initDB() (*driver.DB, error) {
 
 func main() {
 	initApp()
-	// db, err := initDB()
+	db, err := initDB()
 
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	// defer db.SQL.Close()
-
-	// repo := handlers.NewRepo(&app, db)
-	// 	handlers.NewHandler(repo)
-	// 	helpers.NewHelpers(&app)
+	defer db.SQL.Close()
 
 	render.InitViews()
+	repo := handlers.NewRepo(&app, db)
+	handlers.NewHandler(repo)
+	helpers.NewHelpers(&app)
+
 	mux := routes()
 
 	log.Println("Server running on port 8080")
