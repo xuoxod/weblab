@@ -100,8 +100,8 @@ func main() {
 
 	defer db.SQL.Close()
 
-	render.InitViews()
 	render.NewRenderer(&app)
+	render.InitViews()
 	repo := handlers.NewRepo(&app, db)
 	handlers.NewHandler(repo)
 	helpers.NewHelpers(&app)

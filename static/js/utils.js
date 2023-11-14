@@ -197,10 +197,11 @@ const notify = (type, msg, time = 3) => {
 // text string: the message to user
 // icon built-in: success, warning, error, info or question
 // btnText string: button's text
+// showStatus: true or false
 const modal = (
   title,
   text,
-  icon,
+  icon = "info",
   btnText = "Okay",
   btnClose = true,
   showStatus = true
@@ -213,4 +214,115 @@ const modal = (
     showCloseButton: btnClose,
     showLoading: showStatus,
   });
+};
+
+const signin = async () => {
+  const form = await Swal.fire({
+    title: "Log In",
+    icon: "info",
+    showConfirmButton: true,
+    confirmButtonText: "Confirm",
+    showCancelButton: true,
+    cancelButtonText: "Cancel",
+    allowEscapeKey: true,
+    allowEnterKey: true,
+
+    html: `
+    <form id="signin-form">
+      <div class="input-group">
+          <label class="input-group-text">
+              <strong>
+                  <i class="bi bi-envelope-at-fill fs-3"></i>
+              </strong>
+          </label>
+
+          <input id="email" type="email" name="email" placeholder="Enter email address" autocomplete="false" class="form-control">
+      </div>
+
+      <div class="input-group mt-3">
+          <label class="input-group-text">
+              <strong>
+                  <i class="bi bi-lock-fill fs-3"></i>
+              </strong>
+          </label>
+
+          <input id="password" type="password" name="password" placeholder="Enter password" autocomplete="true" class="form-control">
+      </div>
+    </form>
+  `,
+    focusConfirm: true,
+    preConfirm: () => {
+      return [
+        document.querySelector("#email").value,
+        document.querySelector("#password").value,
+      ];
+    },
+  })
+    .then((results) => {
+      const { isConfirmed } = results;
+      if (isConfirmed) {
+        log(`Confirmed`);
+        const signinForm = document.querySelector("#signin-form");
+        const email = document.querySelector("#email").value;
+        const password = document.querySelector("#password").value;
+        const token = document.querySelector("#csrf").value;
+
+        if (email && password && token) {
+          log(`Token:\t${token}\n`);
+          const formData = new FormData(signinForm);
+          formData.append("csrf_token", token);
+          try {
+            fetch("/login", {
+              method: "post",
+              body: formData,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                log(data);
+              });
+          } catch (err) {
+            log(err);
+          }
+
+          log(`Submitted Signin Form\n`);
+        } else {
+          Swal.closeModal();
+        }
+      } else {
+        log(`Dismissed`);
+        Swal.closeModal();
+      }
+    })
+    .catch((err) => {
+      log(err);
+    });
+
+  // if (formValues) {
+  //   const confirmButton = Swal.getConfirmButton();
+  //   const cancelButton = Swal.getCancelButton();
+
+  //   Swal.fire({
+  //     title: "Confirm",
+  //     text: "This action cannot be undone.",
+  //     icon: "success",
+  //     showCancelButton: true,
+  //     cancelButtonText: "Cancel",
+  //     confirmButtonText: "Yes, submit",
+  //   }).then((results) => {
+  //     const { isConfirmed, isDenied, isDismissed } = results;
+  //     if (isConfirmed) {
+  //       log(`Confirmed`);
+  //     } else if (isDenied) {
+  //       log(`Denied`);
+  //     } else {
+  //       log(`Dismissed`);
+  //     }
+  //   });
+  // } else {
+  //   Swal.fire({
+  //     title: "Done",
+  //     icon: "success",
+  //     animation: true,
+  //   });
+  // }
 };

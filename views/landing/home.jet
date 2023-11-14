@@ -10,5 +10,6 @@
 </div>
 
 <div class="col-12" style="margin:100px;"></div>
+<input type="hidden" id="csrf" value="{{.csrf_token}}">
 </div>
 {{end}}

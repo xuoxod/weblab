@@ -24,7 +24,7 @@ func routes() http.Handler {
 		mux.Get("/about", handlers.Repo.About)
 		mux.Post("/login", handlers.Authenticate)
 		mux.Get("/register", handlers.Repo.Register)
-		mux.Post("/login", handlers.Repo.PostRegister)
+		mux.Post("/register", handlers.Repo.PostRegister)
 	})
 
 	mux.Route("/user", func(mux chi.Router) {
