@@ -38,7 +38,7 @@ func (m *Respository) Home(w http.ResponseWriter, r *http.Request) {
 	data := make(map[string]interface{})
 	data["title"] = "Home"
 
-	err := render.Render(w, "landing/home.jet", nil, data)
+	err := render.Render(w, r, "landing/home.jet", nil, data)
 
 	if err != nil {
 		log.Println(err.Error())
@@ -49,7 +49,18 @@ func (m *Respository) About(w http.ResponseWriter, r *http.Request) {
 	data := make(map[string]interface{})
 	data["title"] = "About"
 
-	err := render.Render(w, "landing/about.jet", nil, data)
+	err := render.Render(w, r, "landing/about.jet", nil, data)
+
+	if err != nil {
+		log.Println(err.Error())
+	}
+}
+
+func (m *Respository) Register(w http.ResponseWriter, r *http.Request) {
+	data := make(map[string]interface{})
+	data["title"] = "Register"
+
+	err := render.Render(w, r, "landing/register.jet", nil, data)
 
 	if err != nil {
 		log.Println(err.Error())

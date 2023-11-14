@@ -38,7 +38,13 @@
 </head>
 
 <body>
-   
+    {{ if (isset(.auth)) == true }}
+    {{include "partials/_authmenu.jet"}}
+    {{end}}
+    {{ if (isset(.auth)) == false }}
+    {{include "partials/_unauthmenu.jet"}}
+    {{end}}
+
     <section class="container-fluid" style="margin:10px 0px 0px 0px;" style="height:70%;">
         {{block documentBody()}}{{end}}
     </section>

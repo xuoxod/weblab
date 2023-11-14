@@ -38,7 +38,7 @@ func (m *Respository) UserDashboard(w http.ResponseWriter, r *http.Request) {
 	vars := make(jet.VarMap)
 	vars.Set("title", "Dashboard")
 
-	err := render.Render(w, "user/dashboard.jet", vars, obj)
+	err := render.Render(w, r, "user/dashboard.jet", vars, obj)
 
 	if err != nil {
 		log.Println(err.Error())
@@ -95,7 +95,7 @@ func (m *Respository) Settings(w http.ResponseWriter, r *http.Request) {
 	vars.Set("form", forms.New(nil))
 	vars.Set("settings", fmt.Sprintf("%t", true))
 
-	err := render.Render(w, "user/settings.jet", vars, nil)
+	err := render.Render(w, r, "user/settings.jet", vars, nil)
 
 	if err != nil {
 		log.Println(err.Error())
