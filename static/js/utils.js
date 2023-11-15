@@ -400,6 +400,10 @@ const register = async () => {
 
           <input type="password" id="pwd1" name="pwd1" placeholder="Create password"
             autocomplete="true" class="form-control">
+
+        <span class="input-group-text">
+          <i id="pwd1-toggler" class="bi bi-eye-slash-fill fs-3"></i>
+        </span>
       </div>
 
       <div class="input-group mt-3">
@@ -438,6 +442,7 @@ const register = async () => {
         const pwd1 = document.querySelector("#pwd1").value;
         const pwd2 = document.querySelector("#pwd2").value;
         const token = document.querySelector("#csrf").value;
+        const showPassword = document.querySelector("pwd1-toggler");
 
         if (fname && lname && email && phone && pwd1 && pwd2) {
           if (pwd1 != pwd2) {
@@ -474,3 +479,56 @@ const register = async () => {
       log(err);
     });
 };
+
+let showPasswordToggler = false;
+
+document.addEventListener("click", (e) => {
+  if (e.target.id.trim() == "pwd1-toggler") {
+    log(`${e.target.id} was clicked\n`);
+    const pwd1 = document.querySelector("#pwd1");
+    const pwd2 = document.querySelector("#pwd2");
+    showPasswordToggler = !showPasswordToggler;
+
+    if (showPasswordToggler) {
+      e.target.classList.remove("bi-eye-slash-fill");
+      e.target.classList.add("bi-eye-fill");
+      pwd1.type = "text";
+      pwd2.type = "text";
+    } else {
+      e.target.classList.add("bi-eye-slash-fill");
+      e.target.classList.remove("bi-eye-fill");
+      pwd1.type = "password";
+      pwd2.type = "password";
+    }
+  }
+});
+
+/* if (
+  document.querySelector("#pwd1") &&
+  document.querySelector("#pwd2") &&
+  document.querySelector("#pwd1-toggler")
+) {
+  let showPasswordToggler = false;
+  const pwd1 = document.querySelector("#pwd1");
+  const pwd2 = document.querySelector("#pwd2");
+  const pwdToggler = document.querySelector("#pwd1-toggler");
+
+  document.addEventListener("click", (e) => {
+    if (e.target.id == "pwd1-toggler") {
+      log(`eye icon`);
+      showPasswordToggler = !showPasswordToggler;
+
+      if (showPasswordToggler) {
+        e.target.classList.remove("bi-eye-slash-fill");
+        e.target.classList.add("bi-eye-fill");
+        pwd1.type = "text";
+        pwd2.type = "text";
+      } else {
+        e.target.classList.add("bi-eye-slash-fill");
+        e.target.classList.remove("bi-eye-fill");
+        pwd1.type = "password";
+        pwd2.type = "password";
+      }
+    }
+  });
+} */

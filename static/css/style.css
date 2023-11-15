@@ -6,7 +6,8 @@
     -webkit-backface-visibility: hidden;
 }
 
-.action:hover {
+.action:hover,
+#pwd1-toggler {
     cursor: pointer;
 }
 
