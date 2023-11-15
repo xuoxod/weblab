@@ -201,6 +201,7 @@ const handleSigninResults = (data) => {
 
 const handleRegistrationSuccess = (data) => {
   log(`Registration successful`);
+  notify("success", "Registration Successful");
 };
 
 const handleRegistrationFailure = (data) => {
