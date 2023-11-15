@@ -210,9 +210,9 @@ const handleRegistrationFailure = (data) => {
 
 const handleRegistrationigninResults = (data) => {
   if (data["ok"]) {
-    handleSigninSuccess();
+    handleRegistrationSuccess();
   } else {
-    handleSigninFailure(data);
+    handleRegistrationFailure(data);
   }
 };
 
@@ -454,7 +454,7 @@ const register = async () => {
             })
               .then((response) => response.json())
               .then((data) => {
-                handleSigninResults(data);
+                handleRegistrationigninResults(data);
               });
           } catch (err) {
             log(err);
