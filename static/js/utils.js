@@ -502,33 +502,3 @@ document.addEventListener("click", (e) => {
     }
   }
 });
-
-/* if (
-  document.querySelector("#pwd1") &&
-  document.querySelector("#pwd2") &&
-  document.querySelector("#pwd1-toggler")
-) {
-  let showPasswordToggler = false;
-  const pwd1 = document.querySelector("#pwd1");
-  const pwd2 = document.querySelector("#pwd2");
-  const pwdToggler = document.querySelector("#pwd1-toggler");
-
-  document.addEventListener("click", (e) => {
-    if (e.target.id == "pwd1-toggler") {
-      log(`eye icon`);
-      showPasswordToggler = !showPasswordToggler;
-
-      if (showPasswordToggler) {
-        e.target.classList.remove("bi-eye-slash-fill");
-        e.target.classList.add("bi-eye-fill");
-        pwd1.type = "text";
-        pwd2.type = "text";
-      } else {
-        e.target.classList.add("bi-eye-slash-fill");
-        e.target.classList.remove("bi-eye-fill");
-        pwd1.type = "password";
-        pwd2.type = "password";
-      }
-    }
-  });
-} */
