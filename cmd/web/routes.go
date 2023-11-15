@@ -11,7 +11,7 @@ import (
 func routes() http.Handler {
 	mux := chi.NewRouter()
 	mux.Use(middleware.Compress(5))
-	mux.Use(middleware.Recoverer)
+	// mux.Use(middleware.Recoverer)
 	mux.Use(SessionLoad)
 	// mux.Use(RecoverPanic)
 	mux.Use(WriteToConsole)
@@ -22,14 +22,13 @@ func routes() http.Handler {
 		mux.Use(Unauth)
 		mux.Get("/", handlers.Repo.Home)
 		mux.Get("/about", handlers.Repo.About)
-		mux.Post("/login", handlers.Authenticate)
-		mux.Get("/register", handlers.Repo.Register)
+		mux.Post("/login", handlers.Repo.Authenticate)
 		mux.Post("/register", handlers.Repo.PostRegister)
 	})
 
 	mux.Route("/user", func(mux chi.Router) {
 		mux.Use(Auth)
-		mux.Get("/", handlers.Repo.UserDashboard)
+		mux.Get("/", handlers.Repo.Dashboard)
 		mux.Get("/signout", handlers.Repo.SignOut)
 		mux.Post("/profile", handlers.Repo.ProfilePost)
 		mux.Post("/settings", handlers.Repo.PreferencesPost)

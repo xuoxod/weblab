@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/CloudyKit/jet"
 	"github.com/justinas/nosurf"
 	"github.com/xuoxod/weblab/internal/forms"
 	"github.com/xuoxod/weblab/internal/helpers"
@@ -17,28 +16,23 @@ import (
 // @desc        User dashboard
 // @route       GET /user
 // @access      Private
-func (m *Respository) UserDashboard(w http.ResponseWriter, r *http.Request) {
-	auth, authOk := m.App.Session.Get(r.Context(), "auth").(models.Authentication)
+func (m *Respository) Dashboard(w http.ResponseWriter, r *http.Request) {
+	user, userOk := m.App.Session.Get(r.Context(), "user_id").(models.User)
 
-	if !authOk {
-		log.Println("Cannot get auth data from session")
-		m.App.ErrorLog.Println("Can't get auth data from the session")
-		m.App.Session.Put(r.Context(), "error", "Can't get auth data from session")
+	if !userOk {
+		log.Println("Cannot get user_id data from session")
+		m.App.ErrorLog.Println("Can't get user_id data from the session")
+		m.App.Session.Put(r.Context(), "error", "Can't get user_id data from session")
 		http.Redirect(w, r, "/user", http.StatusTemporaryRedirect)
 		return
 	}
 
-	data := make(map[string]string)
-	data["dashboard"] = fmt.Sprintf("%t", true)
+	data := make(map[string]interface{})
+	data["auth"] = user
+	data["isAuthenticated"] = helpers.IsAuthenticated(r)
+	data["title"] = "Dashboard"
 
-	obj := make(map[string]interface{})
-	obj["auth"] = auth
-	obj["title"] = "Dashboard"
-
-	vars := make(jet.VarMap)
-	vars.Set("title", "Dashboard")
-
-	err := render.Render(w, r, "user/dashboard.jet", vars, obj)
+	err := render.Render(w, r, "user/dashboard.jet", nil, data)
 
 	if err != nil {
 		log.Println(err.Error())
@@ -49,18 +43,9 @@ func (m *Respository) UserDashboard(w http.ResponseWriter, r *http.Request) {
 // @route       GET /user/settings
 // @access      Private
 func (m *Respository) Settings(w http.ResponseWriter, r *http.Request) {
-	// auth, authOk := m.App.Session.Get(r.Context(), "auth").(models.Authentication)
 	profile, profileOk := m.App.Session.Get(r.Context(), "profile").(models.Profile)
 	preferences, preferencesOk := m.App.Session.Get(r.Context(), "preferences").(models.Preferences)
 	user, userOk := m.App.Session.Get(r.Context(), "user_id").(models.User)
-
-	// if !authOk {
-	// 	log.Println("Cannot get auth data from session")
-	// 	m.App.ErrorLog.Println("Can't get auth data from the session")
-	// 	m.App.Session.Put(r.Context(), "error", "Can't get auth data from session")
-	// 	http.Redirect(w, r, "/user", http.StatusTemporaryRedirect)
-	// 	return
-	// }
 
 	if !profileOk {
 		log.Println("Cannot get profile data from session")
@@ -86,16 +71,16 @@ func (m *Respository) Settings(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	vars := make(jet.VarMap)
-	vars.Set("profile", profile)
-	vars.Set("preferences", preferences)
-	vars.Set("user", user)
-	vars.Set("csrftoken", nosurf.Token(r))
-	vars.Set("title", "Settings")
-	vars.Set("form", forms.New(nil))
-	vars.Set("settings", fmt.Sprintf("%t", true))
+	data := make(map[string]interface{})
+	data["title"] = "Settings"
+	data["csrftoken"] = nosurf.Token(r)
+	data["profile"] = profile
+	data["preferences"] = preferences
+	data["user"] = user
+	data["form"] = forms.New(nil)
+	data["isAuthenticated"] = helpers.IsAuthenticated(r)
 
-	err := render.Render(w, r, "user/settings.jet", vars, nil)
+	err := render.Render(w, r, "user/settings.jet", nil, data)
 
 	if err != nil {
 		log.Println(err.Error())

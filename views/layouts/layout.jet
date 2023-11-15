@@ -30,6 +30,15 @@
     <link rel="icon" type="image/x-icon" href="/static/favicon-about.ico">
     {{end}}
 
+    {{if .title == "Dashboard"}}
+    <link rel="icon" type="image/x-icon" href="/static/favicon-dashboard.ico">
+    {{end}}
+
+    {{if .title == "Register"}}
+    <link rel="icon" type="image/x-icon" href="/static/favicon-register.ico">
+    {{end}}
+
+
     <title>
         {{if (isset(.title))}}
         {{.title}}
@@ -70,13 +79,11 @@
     </script>
     {{end}}
 
-    {{ if (isset(settings))}}
+    {{ if (isset(.isAuthenticated)) != true }}
+    <script src="/static/js/unauthed.js"></script>
+    {{else}}
     <script src="/static/js/settings.js"> </script>
     <script src="/static/js/verify.js"></script>
-    {{end}}
-
-    {{ if (isset(.isAuthenticated)) != 1 }}
-    <script src="/static/js/unauthed.js"></script>
     {{end}}
 
 </body>

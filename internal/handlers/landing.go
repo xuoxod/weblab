@@ -50,6 +50,7 @@ func (m *Respository) Home(w http.ResponseWriter, r *http.Request) {
 func (m *Respository) About(w http.ResponseWriter, r *http.Request) {
 	data := make(map[string]interface{})
 	data["title"] = "About"
+	data["csrf_token"] = nosurf.Token(r)
 
 	err := render.Render(w, r, "landing/about.jet", nil, data)
 

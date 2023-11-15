@@ -15,7 +15,7 @@ import (
 	"github.com/xuoxod/weblab/internal/render"
 )
 
-func Authenticate(w http.ResponseWriter, r *http.Request) {
+func (m *Respository) Authenticate(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Post Login")
 
 	obj := make(map[string]interface{})
@@ -57,13 +57,54 @@ func Authenticate(w http.ResponseWriter, r *http.Request) {
 		if rErr != nil {
 			log.Println(err)
 		}
+		return
 	}
 
 	// Authenticate user
+	u, p, s, err := m.DB.Authenticate(signinform.Email, signinform.Password)
+
+	if err != nil {
+		fmt.Println("Authentication Error:\t", err.Error())
+
+		obj["ok"] = false
+		obj["msg"] = "Invalid Login Credentials"
+		obj["type"] = "error"
+
+		out, err := json.MarshalIndent(obj, "", " ")
+
+		if err != nil {
+			log.Println(err)
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(200)
+		_, rErr := w.Write(out)
+
+		if rErr != nil {
+			log.Println(err)
+		}
+		return
+	}
+
+	var user models.User
+	var profile models.Profile
+	var preferences models.Preferences
+
+	user = u
+	profile = p
+	preferences = s
+
+	// Put user in session
+	m.App.Session.Put(r.Context(), "user_id", user)
+	m.App.Session.Put(r.Context(), "profile", profile)
+	m.App.Session.Put(r.Context(), "preferences", preferences)
+
+	if user.AccessLevel == 1 {
+		m.App.Session.Put(r.Context(), "admin_id", user)
+	}
 
 	// Send back JSON results
 	obj["title"] = "Home"
-	obj["signinform"] = signinform
 	obj["ok"] = true
 
 	out, err := json.MarshalIndent(obj, "", " ")

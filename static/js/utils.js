@@ -181,6 +181,24 @@ const newElement = (type) => {
   return null;
 };
 
+const handleSigninSuccess = (data) => {
+  log(`Sign in successful`);
+  location.href = "/user";
+};
+
+const handleSigninFailure = (data) => {
+  log(`Sign in failed`);
+  notify(data["type"], data["msg"]);
+};
+
+const handleSigninResults = (data) => {
+  if (data["ok"]) {
+    handleSigninSuccess();
+  } else {
+    handleSigninFailure(data);
+  }
+};
+
 // notify display a custom alert to user
 // type string: success, error or warning
 // msg string: message to user
@@ -268,7 +286,6 @@ const signin = async () => {
         const token = document.querySelector("#csrf").value;
 
         if (email && password && token) {
-          log(`Token:\t${token}\n`);
           const formData = new FormData(signinForm);
           formData.append("csrf_token", token);
           try {
@@ -278,7 +295,7 @@ const signin = async () => {
             })
               .then((response) => response.json())
               .then((data) => {
-                log(data);
+                handleSigninResults(data);
               });
           } catch (err) {
             log(err);
@@ -296,33 +313,85 @@ const signin = async () => {
     .catch((err) => {
       log(err);
     });
+};
 
-  // if (formValues) {
-  //   const confirmButton = Swal.getConfirmButton();
-  //   const cancelButton = Swal.getCancelButton();
+const register = async () => {
+  const form = await Swal.fire({
+    title: "Register",
+    icon: "info",
+    showConfirmButton: true,
+    confirmButtonText: "Confirm",
+    showCancelButton: true,
+    cancelButtonText: "Cancel",
+    allowEscapeKey: true,
+    allowEnterKey: true,
 
-  //   Swal.fire({
-  //     title: "Confirm",
-  //     text: "This action cannot be undone.",
-  //     icon: "success",
-  //     showCancelButton: true,
-  //     cancelButtonText: "Cancel",
-  //     confirmButtonText: "Yes, submit",
-  //   }).then((results) => {
-  //     const { isConfirmed, isDenied, isDismissed } = results;
-  //     if (isConfirmed) {
-  //       log(`Confirmed`);
-  //     } else if (isDenied) {
-  //       log(`Denied`);
-  //     } else {
-  //       log(`Dismissed`);
-  //     }
-  //   });
-  // } else {
-  //   Swal.fire({
-  //     title: "Done",
-  //     icon: "success",
-  //     animation: true,
-  //   });
-  // }
+    html: `
+    <form id="register-form">
+      <div class="input-group">
+          <label class="input-group-text">
+              <strong>
+                  <i class="bi bi-envelope-at-fill fs-3"></i>
+              </strong>
+          </label>
+
+          <input id="email" type="email" name="email" placeholder="Enter email address" autocomplete="false" class="form-control">
+      </div>
+
+      <div class="input-group mt-3">
+          <label class="input-group-text">
+              <strong>
+                  <i class="bi bi-lock-fill fs-3"></i>
+              </strong>
+          </label>
+
+          <input id="password" type="password" name="password" placeholder="Enter password" autocomplete="true" class="form-control">
+      </div>
+    </form>
+  `,
+    focusConfirm: true,
+    preConfirm: () => {
+      return [
+        document.querySelector("#email").value,
+        document.querySelector("#password").value,
+      ];
+    },
+  })
+    .then((results) => {
+      const { isConfirmed } = results;
+      if (isConfirmed) {
+        log(`Confirmed`);
+        const signinForm = document.querySelector("#signin-form");
+        const email = document.querySelector("#email").value;
+        const password = document.querySelector("#password").value;
+        const token = document.querySelector("#csrf").value;
+
+        if (email && password && token) {
+          const formData = new FormData(signinForm);
+          formData.append("csrf_token", token);
+          try {
+            fetch("/login", {
+              method: "post",
+              body: formData,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                handleSigninResults(data);
+              });
+          } catch (err) {
+            log(err);
+          }
+
+          log(`Submitted Signin Form\n`);
+        } else {
+          Swal.closeModal();
+        }
+      } else {
+        log(`Dismissed`);
+        Swal.closeModal();
+      }
+    })
+    .catch((err) => {
+      log(err);
+    });
 };
