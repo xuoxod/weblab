@@ -175,7 +175,7 @@ const cap = (arg) => {
 };
 
 const newElement = (type) => {
-  if (null != type && typeof type == "string") {
+  if (null != type && typeof type == " string") {
     return document.createElement(type);
   }
   return null;
@@ -192,6 +192,22 @@ const handleSigninFailure = (data) => {
 };
 
 const handleSigninResults = (data) => {
+  if (data["ok"]) {
+    handleSigninSuccess();
+  } else {
+    handleSigninFailure(data);
+  }
+};
+
+const handleRegistrationSuccess = (data) => {
+  log(`Registration successful`);
+};
+
+const handleRegistrationFailure = (data) => {
+  log(`Registration failed`);
+};
+
+const handleRegistrationigninResults = (data) => {
   if (data["ok"]) {
     handleSigninSuccess();
   } else {
@@ -246,27 +262,29 @@ const signin = async () => {
     allowEnterKey: true,
 
     html: `
-    <form id="signin-form">
-      <div class="input-group">
-          <label class="input-group-text">
-              <strong>
-                  <i class="bi bi-envelope-at-fill fs-3"></i>
-              </strong>
-          </label>
+  <form id="signin-form">
+    <div class="input-group">
+      <label class="input-group-text">
+        <strong>
+          <i class="bi bi-envelope-at-fill fs-3"></i>
+        </strong>
+      </label>
 
-          <input id="email" type="email" name="email" placeholder="Enter email address" autocomplete="false" class="form-control">
-      </div>
+      <input id="email" type="email" name="email" placeholder="Enter email address" autocomplete="false"
+        class="form-control">
+    </div>
 
-      <div class="input-group mt-3">
-          <label class="input-group-text">
-              <strong>
-                  <i class="bi bi-lock-fill fs-3"></i>
-              </strong>
-          </label>
+    <div class="input-group mt-3">
+      <label class="input-group-text">
+        <strong>
+          <i class="bi bi-lock-fill fs-3"></i>
+        </strong>
+      </label>
 
-          <input id="password" type="password" name="password" placeholder="Enter password" autocomplete="true" class="form-control">
-      </div>
-    </form>
+      <input id="password" type="password" name="password" placeholder="Enter password" autocomplete="true"
+        class="form-control">
+    </div>
+  </form>
   `,
     focusConfirm: true,
     preConfirm: () => {
@@ -327,33 +345,83 @@ const register = async () => {
     allowEnterKey: true,
 
     html: `
-    <form id="register-form">
+  <form id="register-form">
       <div class="input-group">
-          <label class="input-group-text">
-              <strong>
-                  <i class="bi bi-envelope-at-fill fs-3"></i>
-              </strong>
-          </label>
+        <span class="input-group-text">
+          <strong>
+            <i class="bi bi-alphabet fs-3"></i>
+          </strong>
+        </span>
 
-          <input id="email" type="email" name="email" placeholder="Enter email address" autocomplete="false" class="form-control">
+          <input type="text" id="fname" name="fname" placeholder=" Enter first name"
+            autocomplete="false" class="form-control">
       </div>
 
-      <div class="input-group mt-3">
-          <label class="input-group-text">
-              <strong>
-                  <i class="bi bi-lock-fill fs-3"></i>
-              </strong>
-          </label>
+      <div class="input-group">
+        <span class="input-group-text">
+          <strong>
+            <i class="bi bi-alphabet fs-3"></i>
+          </strong>
+        </span>
 
-          <input id="password" type="password" name="password" placeholder="Enter password" autocomplete="true" class="form-control">
+          <input type="text" id="lname" name="lname" placeholder=" Enter last name"
+            autocomplete="false" class="form-control">
       </div>
-    </form>
+
+      <div class="input-group">
+        <span class="input-group-text">
+          <strong>
+            <i class="bi bi-envelope-at-fill fs-3"></i>
+          </strong>
+        </span>
+
+          <input type="email" id="email" name="email" placeholder=" Enter email address"
+            autocomplete="false" class="form-control">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">
+          <strong>
+            <i class="bi bi-telephone-fill fs-3"></i>
+          </strong>
+        </span>
+
+          <input type="phone" id="phone" name="phone" placeholder=" Enter phone number"
+            autocomplete="false" class="form-control">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">
+          <strong>
+            <i class="bi bi-lock-fill fs-3"></i>
+          </strong>
+        </span>
+
+          <input type="text" id="pwd1" name="pwd1" placeholder="Create password"
+            autocomplete="true" class="form-control">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">
+          <strong>
+            <i class="bi bi-lock-fill fs-3"></i>
+          </strong>
+        </span>
+
+          <input type="text" id="pwd2" name="pwd2" placeholder="Confirm password"
+            autocomplete="true" class="form-control">
+      </div>
+  </form>
   `,
     focusConfirm: true,
     preConfirm: () => {
       return [
+        document.querySelector("#fname").value,
+        document.querySelector("#lname").value,
         document.querySelector("#email").value,
-        document.querySelector("#password").value,
+        document.querySelector("#phone").value,
+        document.querySelector("#pwd1").value,
+        document.querySelector("#pwd2").value,
       ];
     },
   })
@@ -361,16 +429,25 @@ const register = async () => {
       const { isConfirmed } = results;
       if (isConfirmed) {
         log(`Confirmed`);
-        const signinForm = document.querySelector("#signin-form");
+        const registerForm = document.querySelector("#register-form");
+        const fname = document.querySelector("#fname").value;
+        const lname = document.querySelector("#lname").value;
         const email = document.querySelector("#email").value;
-        const password = document.querySelector("#password").value;
+        const phone = document.querySelector("#phone").value;
+        const pwd1 = document.querySelector("#pwd1").value;
+        const pwd2 = document.querySelector("#pwd2").value;
         const token = document.querySelector("#csrf").value;
 
-        if (email && password && token) {
-          const formData = new FormData(signinForm);
+        if (fname && lname && email && phone && pwd1 && pwd2) {
+          if (pwd1 != pwd2) {
+            notify("error", "Passwords don't match");
+            return;
+          }
+
+          const formData = new FormData(registerForm);
           formData.append("csrf_token", token);
           try {
-            fetch("/login", {
+            fetch("/register", {
               method: "post",
               body: formData,
             })
@@ -382,8 +459,9 @@ const register = async () => {
             log(err);
           }
 
-          log(`Submitted Signin Form\n`);
+          log(`Submitted registration Form\n`);
         } else {
+          notify("error", "Missing required field(s)");
           Swal.closeModal();
         }
       } else {

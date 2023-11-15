@@ -5,14 +5,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strings"
 
-	"github.com/CloudyKit/jet"
-	"github.com/justinas/nosurf"
 	"github.com/xuoxod/weblab/internal/forms"
 	"github.com/xuoxod/weblab/internal/helpers"
 	"github.com/xuoxod/weblab/internal/models"
-	"github.com/xuoxod/weblab/internal/render"
 )
 
 func (m *Respository) Authenticate(w http.ResponseWriter, r *http.Request) {
@@ -124,6 +120,8 @@ func (m *Respository) Authenticate(w http.ResponseWriter, r *http.Request) {
 
 func (m *Respository) PostRegister(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Post Register")
+
+	obj := make(map[string]interface{})
 	err := r.ParseForm()
 
 	if err != nil {
@@ -150,69 +148,69 @@ func (m *Respository) PostRegister(w http.ResponseWriter, r *http.Request) {
 	form.PasswordsMatch("pwd1", "pwd2", r)
 
 	if !form.Valid() {
-		fmt.Println(form.Errors)
-
-		// vars := make(jet.VarMap)
-		// vars.Set("title", "Registration")
-
-		data := make(map[string]string)
-		data["title"] = "Registration'"
-
-		obj := make(map[string]interface{})
-		obj["csrftoken"] = nosurf.Token(r)
-		obj["registrationform"] = registration
+		obj["ok"] = false
+		obj["error"] = true
 		obj["form"] = form
+		obj["type"] = "error"
 
-		vars := make(jet.VarMap)
-		vars.Set("csrftoken", nosurf.Token(r))
-
-		err := render.Render(w, r, "landing/register.jet", vars, obj)
+		out, err := json.MarshalIndent(obj, "", " ")
 
 		if err != nil {
-			log.Println(err.Error())
-		}
-	} else {
-		// Send user sms to confirm that it's them
-
-		// Create new user in the database
-		// ERROR: duplicate key value violates unique constraint "users_un" (SQLSTATE 23505)
-		userId, err := m.DB.CreateUser(registration)
-
-		if err != nil {
-			fmt.Println("Account with that email already exists")
-			sErr := err.Error()
-			uniqueErr := strings.HasSuffix(sErr, "(SQLSTATE 23505)")
-
-			if uniqueErr {
-				fmt.Println("Record already exists")
-				var registrationErrData models.RegistrationErrData
-
-				regErrData := make(map[string]string)
-				regErrData["title"] = "Home"
-				regErrData["error"] = "Registration Error"
-				regErrData["type"] = "error"
-				regErrData["msg"] = "Account already exists"
-
-				registrationErrData.Data = regErrData
-				m.App.Session.Put(r.Context(), "reg-error", registrationErrData)
-			}
-
-			/* vars := make(jet.VarMap)
-			vars.Set("title", "Registration")
-
-			data := make(map[string]interface{})
-			data["csrftoken"] = nosurf.Token(r)
-			data["registrationform"] = registration
-			data["form"] = form */
-
-			http.Redirect(w, r, "/register", http.StatusSeeOther)
-			return
+			log.Println(err)
 		}
 
-		if userId > 0 {
-			fmt.Println("User created successfully")
-		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(200)
+		_, rErr := w.Write(out)
 
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		if rErr != nil {
+			log.Println(err)
+		}
+		return
 	}
+
+	// Send user sms to confirm that it's them
+
+	// Create user
+	userId, err := m.DB.CreateUser(registration)
+
+	if err != nil {
+		obj["ok"] = false
+		obj["type"] = "error"
+		obj["msg"] = "User already registered"
+
+		out, err := json.MarshalIndent(obj, "", " ")
+
+		if err != nil {
+			log.Println(err)
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(200)
+		_, rErr := w.Write(out)
+
+		if rErr != nil {
+			log.Println(err)
+		}
+		return
+	}
+
+	// Send back JSON results
+	obj["ok"] = true
+	obj["userId"] = userId
+
+	out, err := json.MarshalIndent(obj, "", " ")
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, rErr := w.Write(out)
+
+	if rErr != nil {
+		log.Println(err)
+	}
+
 }

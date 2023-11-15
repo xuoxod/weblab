@@ -46,7 +46,7 @@ func (m *postgresDbRepo) CreateUser(user models.Registration) (int, error) {
 	rowErr := row.Scan(&userId)
 
 	if rowErr != nil {
-		fmt.Println("User Error: ", rowErr.Error())
+		fmt.Println("User Row Error: ", rowErr.Error())
 		return 0, rowErr
 	}
 
@@ -62,7 +62,7 @@ func (m *postgresDbRepo) CreateUser(user models.Registration) (int, error) {
 	rowErr = row.Scan(&profileId)
 
 	if rowErr != nil {
-		fmt.Println("Profile Error: ", rowErr.Error())
+		fmt.Println("Profile Row Error: ", rowErr.Error())
 		return 0, rowErr
 	}
 
@@ -74,7 +74,7 @@ func (m *postgresDbRepo) CreateUser(user models.Registration) (int, error) {
 	rowErr = row.Scan(&prefId)
 
 	if rowErr != nil {
-		fmt.Println("Preferences Error: ", rowErr.Error())
+		fmt.Println("Preferences Row Error: ", rowErr.Error())
 		return 0, rowErr
 	}
 
