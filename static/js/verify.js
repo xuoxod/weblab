@@ -50,8 +50,12 @@ const verifyPhoneButtonHandler = () => {
   phoneLabelIcon.remove();
 
   const p = newElement("p");
-  p.innerText = "A verification code has been sent to your phone";
-
+  // p.innerText = "A verification code has been sent to your phone";
+  addAttribute(
+    p,
+    "innerText",
+    "A verification code has been sent to your phone"
+  );
   addAttribute(verifyPhoneInput, "placeholder", "Enter verification code");
   addAttribute(p, "class", "text-success fw-bold m-1");
   addAttribute(p, "id", "p-phone");
@@ -82,7 +86,9 @@ function phoneVerificationResponse(response) {
     log(`Phone verification succeeded\n`);
 
     verifyPhoneInput.classList.remove("d-none");
-    document.querySelector("#p-phone").remove();
+    if (document.querySelector("#p-phone")) {
+      document.querySelector("#p-phone").remove();
+    }
     phoneIcon = newElement("i");
 
     addAttribute(
@@ -175,8 +181,12 @@ const verifyEmailButtonHandler = () => {
   emailLabelIcon.remove();
 
   const p = newElement("p");
-  p.innerText = "A verification code has been sent to your email";
-
+  // p.innerText = "A verification code has been sent to your email";
+  addAttribute(
+    p,
+    "innerText",
+    "A verification code has been sent to your email"
+  );
   addAttribute(verifyEmailInput, "placeholder", "Enter verification code");
   addAttribute(p, "class", "text-success fw-bold m-1");
   addAttribute(p, "id", "p-email");
@@ -207,7 +217,9 @@ function emailVerificationResponse(response) {
     log(`Email verification succeeded\n`);
 
     verifyEmailInput.classList.remove("d-none");
-    document.querySelector("#p-email").remove();
+    if (document.querySelector("#p-email")) {
+      document.querySelector("#p-email").remove();
+    }
     emailIcon = newElement("i");
 
     addAttribute(
