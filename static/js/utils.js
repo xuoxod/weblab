@@ -398,7 +398,7 @@ const register = async () => {
           </strong>
         </span>
 
-          <input type="text" id="pwd1" name="pwd1" placeholder="Create password"
+          <input type="password" id="pwd1" name="pwd1" placeholder="Create password"
             autocomplete="true" class="form-control">
       </div>
 
@@ -409,7 +409,7 @@ const register = async () => {
           </strong>
         </span>
 
-          <input type="text" id="pwd2" name="pwd2" placeholder="Confirm password"
+          <input type="password" id="pwd2" name="pwd2" placeholder="Confirm password"
             autocomplete="true" class="form-control">
       </div>
   </form>
