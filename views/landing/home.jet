@@ -11,5 +11,8 @@
 
 <div class="col-12" style="margin:100px;"></div>
 <input type="hidden" id="csrf" value="{{.csrf_token}}">
+<input type="hidden" id="appname" value="{{appname}}">
+<input type="hidden" id="appver" value="{{appver}}">
+<input type="hidden" id="appdate" value="{{appdate}}">
 </div>
 {{end}}

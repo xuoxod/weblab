@@ -251,6 +251,60 @@ const modal = (
   });
 };
 
+const about = async () => {
+  const form = await Swal.fire({
+    titleText: "About",
+    icon: "info",
+    animation: true,
+    position: "center",
+    timer: 3555,
+    allowOutsideClick: true,
+    allowEscapeKey: true,
+    html: `
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="input-group">
+        <label class="input-group-text">
+          <strong>
+            <i class="bi bi-c-circle fs-3"></i>
+          </strong>
+        </label>
+
+        <input type="text" value="2023" autocomplete="false" readonly class="form-control">
+      </div>
+
+      <div class="input-group mt-3">
+        <label class="input-group-text">
+          <strong>
+            <i class="bi bi-tag fs-3"></i>
+          </strong>
+        </label>
+
+        <input type="text" value="v0.0.3" autocomplete="false" readonly class="form-control">
+      </div>
+
+      <div class="input-group mt-3">
+        <label class="input-group-text">
+          <strong>
+            <i class="bi bi-patch-check fs-3"></i>
+          </strong>
+        </label>
+
+        <input type="text" value="RmediaTech" readonly  class="form-control">
+      </div>
+    </div>
+  </div>
+  `,
+    showCloseButton: true,
+  })
+    .then((results) => {
+      log(results);
+    })
+    .catch((err) => {
+      log(err);
+    });
+};
+
 const signin = async () => {
   const form = await Swal.fire({
     title: "Log In",
