@@ -358,7 +358,7 @@ const register = async () => {
             autocomplete="false" class="form-control">
       </div>
 
-      <div class="input-group">
+      <div class="input-group mt-3">
         <span class="input-group-text">
           <strong>
             <i class="bi bi-alphabet fs-3"></i>
@@ -369,7 +369,7 @@ const register = async () => {
             autocomplete="false" class="form-control">
       </div>
 
-      <div class="input-group">
+      <div class="input-group mt-3">
         <span class="input-group-text">
           <strong>
             <i class="bi bi-envelope-at-fill fs-3"></i>
@@ -380,7 +380,7 @@ const register = async () => {
             autocomplete="false" class="form-control">
       </div>
 
-      <div class="input-group">
+      <div class="input-group mt-3">
         <span class="input-group-text">
           <strong>
             <i class="bi bi-telephone-fill fs-3"></i>
@@ -391,7 +391,7 @@ const register = async () => {
             autocomplete="false" class="form-control">
       </div>
 
-      <div class="input-group">
+      <div class="input-group mt-3">
         <span class="input-group-text">
           <strong>
             <i class="bi bi-lock-fill fs-3"></i>
@@ -402,7 +402,7 @@ const register = async () => {
             autocomplete="true" class="form-control">
       </div>
 
-      <div class="input-group">
+      <div class="input-group mt-3">
         <span class="input-group-text">
           <strong>
             <i class="bi bi-lock-fill fs-3"></i>
