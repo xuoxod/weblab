@@ -36,7 +36,7 @@ func Render(w http.ResponseWriter, r *http.Request, tmpl string, variables jet.V
 	if variables != nil {
 		vars = variables
 	} else {
-		vars = variables
+		vars = make(jet.VarMap)
 	}
 
 	if data != nil {

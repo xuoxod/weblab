@@ -90,5 +90,5 @@ func CopyrightDate() string {
 	d := time.Date(time.Now().Year(), time.Now().Month(), time.Now().Day(), 12, 30, 0, 0, time.UTC)
 	year, _, _ := d.Date()
 
-	return fmt.Sprintf("RmediaTech %v", year)
+	return fmt.Sprintf("RmediaTech.com %v", year)
 }
