@@ -38,6 +38,8 @@ func (m *Respository) Authenticate(w http.ResponseWriter, r *http.Request) {
 	if !form.Valid() {
 		obj["ok"] = false
 		obj["form"] = form
+		obj["msg"] = form.Errors.Get("email")
+		obj["type"] = "error"
 		obj["signinform"] = signinform
 
 		out, err := json.MarshalIndent(obj, "", " ")

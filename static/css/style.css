@@ -34,24 +34,6 @@
     overflow: hidden;
 }
 
-.main-panel {
-    transition: width 0.25s ease, margin 0.25s ease;
-    width: calc(100% - 237px);
-    min-height: calc(100vh - 70px);
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-}
-
-.content-wrapper {
-    background: #dddce1;
-    padding: 1.5rem 2.5rem;
-    width: 100%;
-    -webkit-flex-grow: 1;
-    flex-grow: 1;
-}
-
 .footer {
     background: #dddce1;
     color: color(dark);
