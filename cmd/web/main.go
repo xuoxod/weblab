@@ -25,11 +25,12 @@ var app config.AppConfig
 var session *scs.SessionManager
 var infoLog *log.Logger
 var errorLog *log.Logger
+var port string
 
 func initApp() {
 	var devMode bool
 	flag.BoolVar(&devMode, "mode", false, "Sets true for production mode or false otherwise - defaults to false")
-
+	flag.StringVar(&port, "port", ":8080", "Sets the server's port")
 	err := envloader.LoadEnvVars()
 
 	if err != nil {
@@ -110,5 +111,5 @@ func main() {
 
 	log.Println("Server running on port 8080")
 
-	_ = http.ListenAndServe(":8080", mux)
+	_ = http.ListenAndServe(port, mux)
 }
