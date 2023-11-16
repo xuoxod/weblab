@@ -257,7 +257,7 @@ const about = async () => {
     icon: "info",
     animation: true,
     position: "center",
-    timer: 3555,
+    timer: 4555,
     allowOutsideClick: true,
     allowEscapeKey: true,
     html: `
