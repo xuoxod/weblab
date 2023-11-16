@@ -13,7 +13,8 @@
       "program": "${workspaceFolder}/cmd/web/",
       "env": {},
       "envFile": "${workspaceFolder}/.test.env",
-      "args": []
+      "args": [],
+      "cwd": "${workspaceFolder}",
     }
   ]
 }
