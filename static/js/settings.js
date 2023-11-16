@@ -302,38 +302,42 @@ const submitProfileForm = () => {
   }
 };
 
-profileForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  log(`Profile form submitted\n`);
-  try {
-    submitProfileForm();
-  } catch (err) {
-    log(err);
-  }
-  return;
-});
+if (profileForm) {
+  profileForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    log(`Profile form submitted\n`);
+    try {
+      submitProfileForm();
+    } catch (err) {
+      log(err);
+    }
+    return;
+  });
+}
 
-profileEditButton.addEventListener("click", () => {
-  toggler = !toggler;
-  log(`Edit button clicked\n`);
-  if (toggler) {
-    inputs.forEach((input) => {
-      // log(`${input.name}\n`);
-      input.removeAttribute("readonly");
-    });
-    profileEditButton.classList.remove("btn-success");
-    profileEditButton.classList.add("btn-warning");
-  } else {
-    inputs.forEach((input) => {
-      // log(`${input.name}\n`);
-      if (!input.hasAttribute("readonly")) {
-        input.setAttribute("readonly", "");
-      }
-    });
-    profileEditButton.classList.remove("btn-warning");
-    profileEditButton.classList.add("btn-success");
-  }
-});
+if (profileEditButton) {
+  profileEditButton.addEventListener("click", () => {
+    toggler = !toggler;
+    log(`Edit button clicked\n`);
+    if (toggler) {
+      inputs.forEach((input) => {
+        // log(`${input.name}\n`);
+        input.removeAttribute("readonly");
+      });
+      profileEditButton.classList.remove("btn-success");
+      profileEditButton.classList.add("btn-warning");
+    } else {
+      inputs.forEach((input) => {
+        // log(`${input.name}\n`);
+        if (!input.hasAttribute("readonly")) {
+          input.setAttribute("readonly", "");
+        }
+      });
+      profileEditButton.classList.remove("btn-warning");
+      profileEditButton.classList.add("btn-success");
+    }
+  });
+}
 
 inputs.forEach((input) => {
   input.addEventListener("keyup", (e) => {
@@ -389,13 +393,15 @@ const submitSettingsForm = () => {
   }
 };
 
-settingsForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  log(`Settings form submitted\n`);
-  try {
-    submitSettingsForm();
-  } catch (err) {
-    log(err);
-  }
-  return;
-});
+if (settingsForm) {
+  settingsForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    log(`Settings form submitted\n`);
+    try {
+      submitSettingsForm();
+    } catch (err) {
+      log(err);
+    }
+    return;
+  });
+}
