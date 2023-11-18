@@ -1,16 +1,4 @@
 {{extends "../layouts/layout.jet"}}
 {{block documentBody()}}
-<div class="w3-row">
-    <div class="w3-container w3-cell w3-mobile">
-        <h3 class="w3-heading">Heading One</h3>
-    </div>
 
-    <div class="w3-container w3-cell w3-mobile">
-        <h3 class="w3-heading">Heading One</h3>
-    </div>
-
-    <div class="w3-container w3-cell w3-mobile">
-        <h3 class="w3-heading">Heading One</h3>
-    </div>
-</div>
 {{end}}

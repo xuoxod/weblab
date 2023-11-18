@@ -5,6 +5,7 @@
     <a href="#" class="w3-bar-item w3-button w3-hide-small account-link">Account</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small profile-link">Profile</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small settings-link">Settings</a>
+    <a href="/user/signout" class="w3-bar-item w3-button w3-hide-small signout-link w3-right">Sign Out</a>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
         onclick="siteMenuEffect()">&#9776;</a>
 </div>
@@ -30,6 +31,14 @@
         </span>
 
         <i class="bi bi-gear w3-right"></i>
+    </a>
+
+    <a href="/user/signout" class="w3-bar-item w3-button mobile-signout-link">
+        <span class="w3-left">
+            Sign Out
+        </span>
+
+        <i class="bi bi-box-arrow-right w3-right"></i>
     </a>
 </div>
 {{end}}

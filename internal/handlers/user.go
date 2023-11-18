@@ -27,7 +27,7 @@ func (m *Respository) Dashboard(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := make(map[string]interface{})
-	data["auth"] = user
+	data["user"] = user
 	data["isAuthenticated"] = helpers.IsAuthenticated(r)
 	data["title"] = "Dashboard"
 
