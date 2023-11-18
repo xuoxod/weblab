@@ -30,6 +30,27 @@
     overflow-y: scroll;
 }
 
+/* .main-row {
+    max-height: max-content;
+    margin: auto;
+} */
+
+/* .main-row>* {
+    max-height: max-content;
+} */
+.site-menu {
+    border-radius: 10px;
+    justify-content: space-evenly;
+    align-items: stretch;
+    display: flex;
+    height: max-content;
+    transition: all 200ms ease-in-out;
+}
+
+.site-menu.hide {
+    height: 0px;
+}
+
 .scroller {
     overflow: hidden;
 }
