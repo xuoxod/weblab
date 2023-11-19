@@ -1,42 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
-  if (
-    document.querySelector("#sign-in") &&
-    document.querySelector("#register")
-  ) {
-    const signinLink = document.querySelector("#sign-in");
-    const registerLink = document.querySelector("#register");
-    const aboutLink = document.querySelector("#about-link");
+  const signinLink = document.querySelector("#mobile-sign-in");
+  const registerLink = document.querySelector("#mobile-register");
+  const aboutLink = document.querySelector("#mobile-about-link");
 
-    if (signinLink) {
-      signinLink.addEventListener("click", () => {
-        signin();
-      });
-    }
+  if (aboutLink && registerLink && aboutLink) {
+    addClickHandler(aboutLink, about);
 
-    if (registerLink) {
-      registerLink.addEventListener("click", () => {
-        register();
-      });
-    }
+    addClickHandler(registerLink, register);
 
-    if (aboutLink) {
-      aboutLink.addEventListener("click", (e) => {
-        about();
-      });
-    }
-  }
-
-  // Intersection observer - menu
-  if ("IntersectionObserver" in window) {
-    let observer = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          /* Here's where we deal with every intersection */
-          entry.target.src = entry.target.dataset.src;
-          observer.unobserve(entry.target);
-        });
-      },
-      { rootMargin: "0px 0px -200px 0px" }
-    );
+    addClickHandler(signinLink, signin);
   }
 });
+
+function siteMenuEffect() {
+  var x = document.getElementById("site-menu");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}

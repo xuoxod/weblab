@@ -68,3 +68,32 @@
     font-weight: 400;
     border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
+
+.box {
+    position: relative;
+    border-radius: 5px;
+}
+
+p {
+    white-space: pre-wrap;
+    /* Webkit */
+    white-space: -moz-pre-wrap;
+    /* Firefox */
+    white-space: -pre-wrap;
+    /* Opera <7 */
+    white-space: -o-pre-wrap;
+    /* Opera 7 */
+    word-wrap: break-word;
+}
+
+@media (min-width: 767) {
+    p {
+        width: 100%;
+    }
+}
+
+@media (max-width: 766) {
+    p {
+        width: 100%;
+    }
+}

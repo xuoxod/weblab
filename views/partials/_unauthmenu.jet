@@ -1,30 +1,43 @@
 {{import "../partials/_brand"}}
 {{block unauthmenu()}}
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-            aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarMenu">
-            <a class="navbar-brand" href="#">{{yield brand()}}</a>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a id="about-link" class="nav-link" href="/#">About</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a id="sign-in" class="nav-link" href="/#">Sign In</a>
-                </li>
-                <li class="nav-item">
-                    <a id="register" class="nav-link" href="/#">Register</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div class="w3-bar w3-blue">
+    <a href="/" class="w3-bar-item w3-button">Home</a>
+    <a id="about-link" href="#" class="w3-bar-item w3-button w3-hide-small account-link">About</a>
+     <a id="sign-in" class="w3-bar-item w3-button w3-hide-small w3-right" href="/#">Sign In</a>
+     <a id="register" class="w3-bar-item w3-button w3-hide-small w3-right" href="/#">Register</a>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+        onclick="siteMenuEffect()">&#9776;</a>
+</div>
+
+<div id="site-menu" class="w3-bar-block w3-blue w3-hide w3-hide-large w3-hide-medium">
+    <a href="/" class="w3-bar-item w3-button mobile-account-link">
+        <span class="w3-left">
+            Home
+        </span>
+
+        <i class="bi bi-house w3-right"></i>
+    </a>
+    <a id="mobile-about-link" href="#" class="w3-bar-item w3-button mobile-profile-link">
+        <span class="w3-left">
+            About
+        </span>
+
+        <i class="bi bi-info-circle w3-right"></i>
+    </a>
+    <a id="mobile-sign-in" href="#" class="w3-bar-item w3-button mobile-settings-link">
+        <span class="w3-left">
+            Sign In
+        </span>
+
+        <i class="bi bi-box-arrow-left w3-right"></i>
+    </a>
+
+    <a id="mobile-register" href="/#" class="w3-bar-item w3-button mobile-signout-link">
+        <span class="w3-left">
+            Register
+        </span>
+
+        <i class="bi bi-r-circle w3-right"></i>
+    </a>
+</div>
 {{end}}

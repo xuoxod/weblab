@@ -1,4 +1,39 @@
 {{extends "../layouts/layout.jet"}}
 {{block documentBody()}}
+<div class="row my-1 gap-2 justify-content-center">
+    <div class="box col-12 col-md-4 border border-primary">
+        <p>
+            correction
+        </p>
+    </div>
+    <div class="box col-12 col-md-4 w-auto border border-primary">
+        <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos dicta laudantium vero, aut dolor natus, vitae,
+            ipsa omnis velit veritatis quos ratione amet quia tempora quibusdam rerum? Labore, tempora dolorem!
+        </p>
+    </div>
+    <div class="box col-12 col-md-4 border border-primary">
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore ducimus qui debitis consectetur aut aperiam
+            at excepturi. Illo praesentium quaerat consequatur laboriosam labore esse quasi adipisci! Laudantium
+            necessitatibus atque eaque!
+        </p>
+    </div>
+</div>
 
+<div class="row gap-2 my-1">
+    <div class="box col-12 border border-primary">
+        <p>
+            episode
+        </p>
+    </div>
+    <div class="box col-12 border border-primary">
+        <p>
+            episode
+        </p>
+    </div>
+    <div class="box col-12 border border-primary">
+        <p>episode</p>
+    </div>
+</div>
 {{end}}

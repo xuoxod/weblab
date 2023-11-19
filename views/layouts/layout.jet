@@ -53,7 +53,7 @@
     {{include "partials/_unauthmenu.jet"}}
     {{end}}
 
-    <div class="border border-primary my-5">
+    <div class="container-fluid border border-primary my-5">
         {{block documentBody()}}{{end}}
     </div>
 
