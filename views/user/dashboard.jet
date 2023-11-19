@@ -1,7 +1,7 @@
 {{extends "../layouts/layout.jet"}}
 {{block documentBody()}}
 <div class="container-fluid">
-    <div class="row align-items-start justify-content-center">
+    <div class="row">
         <div class="col-md-2 col-sm-12">
             <ul class="w3-ul index-menu">
                 <li>
@@ -20,7 +20,7 @@
         </div>
 
         <div class="col-md-10 col-sm-12">
-            <div class="row my-1 justify-content-center">
+            <div class="row my-1">
                 <div class="box col-12 col-md-4 border border-primary">
                     <p>
                         correction
