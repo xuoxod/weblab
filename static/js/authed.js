@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const mobileAccountLink = document.querySelector(".mobile-account-link");
   const mobileProfileLink = document.querySelector(".mobile-profile-link");
   const mobileSettingsLink = document.querySelector(".mobile-settings-link");
+  const indexAccountLink = document.querySelector("#index-account");
+  const indexProfileLink = document.querySelector("#index-profile");
+  const indexSettingsLink = document.querySelector("#index-settings");
 
   const accountLinkHandler = () => {
     log(`Account link clicked`);
@@ -30,6 +33,12 @@ document.addEventListener("DOMContentLoaded", function () {
     addClickHandler(mobileProfileLink, profileLinkHandler);
 
     addClickHandler(mobileSettingsLink, settingsLinkHandler);
+
+    addClickHandler(indexAccountLink, accountLinkHandler);
+
+    addClickHandler(indexProfileLink, profileLinkHandler);
+
+    addClickHandler(indexSettingsLink, settingsLinkHandler);
   }
 });
 
