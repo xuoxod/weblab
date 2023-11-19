@@ -1,39 +1,66 @@
 {{extends "../layouts/layout.jet"}}
 {{block documentBody()}}
-<div class="row my-1 gap-2 justify-content-center">
-    <div class="box col-12 col-md-4 border border-primary">
-        <p>
-            correction
-        </p>
-    </div>
-    <div class="box col-12 col-md-4 w-auto border border-primary">
-        <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos dicta laudantium vero, aut dolor natus, vitae,
-            ipsa omnis velit veritatis quos ratione amet quia tempora quibusdam rerum? Labore, tempora dolorem!
-        </p>
-    </div>
-    <div class="box col-12 col-md-4 border border-primary">
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore ducimus qui debitis consectetur aut aperiam
-            at excepturi. Illo praesentium quaerat consequatur laboriosam labore esse quasi adipisci! Laudantium
-            necessitatibus atque eaque!
-        </p>
-    </div>
-</div>
+<div class="container-fluid">
+    <div class="row align-items-start justify-content-center">
+        <div class="col-md-2 col-sm-12">
+            <ul class="w3-ul index-menu">
+                <li>
+                    <a id="index-account" href="/#" class="w3-bar-item w3-button">Account</a>
+                </li>
 
-<div class="row gap-2 my-1">
-    <div class="box col-12 border border-primary">
-        <p>
-            episode
-        </p>
-    </div>
-    <div class="box col-12 border border-primary">
-        <p>
-            episode
-        </p>
-    </div>
-    <div class="box col-12 border border-primary">
-        <p>episode</p>
+                <li>
+                    <a id="index-profile" href="#" class="w3-bar-item w3-button w3-hide-small profile-link">Profile</a>
+                </li>
+
+                <li>
+                    <a id="index-settings" href="#"
+                        class="w3-bar-item w3-button w3-hide-small settings-link">Settings</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-10 col-sm-12">
+            <div class="row my-1 justify-content-center">
+                <div class="box col-12 col-md-4 border border-primary">
+                    <p>
+                        correction
+                    </p>
+                </div>
+                <div class="box col-12 col-md-4 border border-primary">
+                    <p>
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos dicta laudantium vero, aut dolor
+                        natus, vitae,
+                        ipsa omnis velit veritatis quos ratione amet quia tempora quibusdam rerum? Labore, tempora
+                        dolorem!
+                    </p>
+                </div>
+                <div class="box col-12 col-md-4 border border-primary">
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore ducimus qui debitis consectetur
+                        aut aperiam
+                        at excepturi. Illo praesentium quaerat consequatur laboriosam labore esse quasi adipisci!
+                        Laudantium
+                        necessitatibus atque eaque!
+                    </p>
+                </div>
+            </div>
+
+            <div class="row my-1">
+                <div class="box col-12 border border-primary">
+                    <p>
+                        episode
+                    </p>
+                </div>
+                <div class="box col-12 border border-primary">
+                    <p>
+                        episode
+                    </p>
+                </div>
+                <div class="box col-12 border border-primary">
+                    <p>episode</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {{end}}
